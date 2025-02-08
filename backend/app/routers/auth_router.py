@@ -21,7 +21,7 @@ one_time_code = {}
 
 @router.get("/login/google")
 async def login_via_google(request: Request):
-    redirect_uri = request.url_for('authorize_google')
+    redirect_uri = "https://next-auth.hojiakbar.me/api/auth/google/callback"
     return RedirectResponse(google_auth_uri(redirect_uri))
 
 
@@ -49,7 +49,7 @@ async def authorize_google(code: str, request: Request, session: AsyncSession = 
 
 @router.get("/login/github")
 async def login_via_github(request: Request):
-    redirect_uri = request.url_for('authorize_github')
+    redirect_uri = "https://next-auth.hojiakbar.me/api/auth/github/callback"
     return RedirectResponse(github_auth_uri(redirect_uri))
 
 
