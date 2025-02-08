@@ -126,7 +126,6 @@ async def login_user(
 
 @router.post("/logout")
 async def logout_user(request: Request):
-    request.session.clear()
     return JSONResponse(status_code=200, content={"message": "Logout successful"})
 
 

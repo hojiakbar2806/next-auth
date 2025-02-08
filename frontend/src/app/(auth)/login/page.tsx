@@ -10,6 +10,7 @@ import FormInput from "@/components/auth/formInput";
 import OauthButton from "@/components/auth/oauthButton";
 import SubmitButton from "@/components/auth/submitButton";
 import { loginAction } from "@/app/actions/auth/login";
+import axios from "@/utils/axios";
 
 const schema = z.object({
   username: z.string().min(4, "Username must be at least 4 characters long"),
@@ -20,7 +21,6 @@ export type LoginFormData = z.infer<typeof schema>;
 
 export default function SignIn() {
   const {
-    reset,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -34,10 +34,7 @@ export default function SignIn() {
         if (res.ok) {
           router.replace("/");
           toast.success(res.msg);
-        } else {
-          reset();
-          toast.error(res.msg);
-        }
+        } else toast.error(res.msg);
       }),
       {
         loading: "Signing in...",
