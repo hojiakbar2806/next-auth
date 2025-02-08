@@ -1,4 +1,4 @@
-name: Nxt-auth deploy
+name: Next-auth deploy
 
 on:
   push:

@@ -15,12 +15,8 @@ COPY . .
 
 RUN bun run build
 
-
-FROM node:18-slim AS runner
-WORKDIR /app
-
-COPY --from=builder  /app/.next/standalone ./
+ENV NODE_ENV production
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["bun",  "start"]
