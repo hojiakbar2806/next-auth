@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from app.core.config import settings
-from app.middleware.setup import setup_cors_middleware, setup_session_middleware
+from app.middleware.setup import setup_cors_middleware
 from app.routers.auth_router import router as auth_router
 
 
@@ -11,8 +11,6 @@ app = FastAPI(
 )
 
 setup_cors_middleware(app)
-setup_session_middleware(app)
-
 
 api_router = APIRouter()
 
