@@ -23,4 +23,4 @@ async def read_root():
         "debug_mode": settings.app_debug
     }
 
-api_router.include_router(auth_router, prefix=settingd.api_prefix, tags=["auth"])
+api_router.include_router(auth_router, prefix=settings.api_prefix, tags=["auth"])
