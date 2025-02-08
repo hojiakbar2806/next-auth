@@ -20,7 +20,7 @@ def setup_cors_middleware(app: FastAPI):
         CORSMiddleware,
         allow_origins=[
             "http://localhost:3000",
-            "http://api.localhost:8000"
+            "http://next-auth.hojiakbar.me"
         ],
         allow_credentials=True,
         allow_methods=["*"],
