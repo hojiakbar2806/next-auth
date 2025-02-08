@@ -28,7 +28,7 @@ async def login_via_google(request: Request):
 @router.get("/google/callback")
 async def authorize_google(code: str, request: Request, session: AsyncSession = Depends(get_session)):
     global one_time_code
-    token = await get_google_access_token(code, request.url_for("authorize_google"))
+    token = await get_google_access_token(code, "https://next-auth.hojiakbar.me/api/auth/google/callback")
     user_info = await get_google_user_info(token)
     query = select(User).where(User.email == user_info.get("email"))
     db_user = (await session.execute(query)).scalar_one_or_none()
@@ -56,7 +56,7 @@ async def login_via_github(request: Request):
 @router.get("/github/callback")
 async def authorize_github(code: str, request: Request, session: AsyncSession = Depends(get_session)):
     global one_time_code
-    token = await get_github_access_token(code, request.url_for("authorize_github"))
+    token = await get_github_access_token(code, "https://next-auth.hojiakbar.me/api/auth/github/callback")
     user_info = await get_github_user_info(token)
     query = select(User).where(User.username == user_info.get("login"))
     db_user = (await session.execute(query)).scalar_one_or_none()
