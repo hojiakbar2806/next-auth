@@ -12,4 +12,4 @@ RUN bun run build
 
 EXPOSE 3000
 
-CMD ["node" ".next/standalone/server.js"]
+CMD ["bun" ".next/standalone/server.js"]
