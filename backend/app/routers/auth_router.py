@@ -14,7 +14,7 @@ from app.services.oauth.github import get_github_access_token, get_github_user_i
 from app.core.auth import create_access_token, create_refresh_token, hash_password, verify_password, verify_user_token
 from app.services.oauth.google import get_google_access_token, get_google_user_info, google_auth_uri
 
-router = APIRouter()
+router = APIRouter( prefix="/auth",tags=["Auth"])
 
 one_time_code = {}
 

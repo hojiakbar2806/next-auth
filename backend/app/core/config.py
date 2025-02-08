@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     app_debug: bool
     app_host: str
     app_port: int
+    api_prefix: str
     secret_key: SecretStr
     frontend_token_holder_url: str
 
