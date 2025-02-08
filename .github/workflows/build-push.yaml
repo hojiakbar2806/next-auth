@@ -1,9 +1,9 @@
-name: M-Look deploy
+name: Nxt-auth deploy
 
 on:
   push:
     branches:
-      - main1
+      - main
 
 jobs:
   build:
@@ -22,8 +22,8 @@ jobs:
       - name: Build frontend Docker Image
         uses: docker/build-push-action@v3
         with:
-          context: ./m-look-front
-          file: ./m-look-front/Dockerfile
+          context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_FRONTEND_IMAGE }}:latest
           cache-from: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_FRONTEND_IMAGE }}:latest
@@ -31,32 +31,8 @@ jobs:
       - name: Build backend Docker Image
         uses: docker/build-push-action@v3
         with:
-          context: ./m-look-back
-          file: ./m-look-back/Dockerfile
+          context: ./backend
+          file: ./backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_BACKEND_IMAGE }}:latest
           cache-from: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_BACKEND_IMAGE }}:latest
-
-      - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to AWS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
-          cd ~/m-look
-
-          git pull origin main
-
-          sudo rm -rf m-look-front m-look-back .github
-
-          sudo docker pull hojiakbar2806/m-look_backend:latest
-
-          sudo docker-compose down
-          sudo docker-compose rm -f
-          sudo docker-compose up -d
-
-          sudo docker image prune -f
-          sudo docker container prune -f
-          EOF
