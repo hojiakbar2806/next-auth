@@ -1,0 +1,37 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  backend:
+    image: hojiakbar2806/next_auth_back
+    command: /bin/sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000"
+    env_file:
+      - .env  
+    expose:
+      - "8000"
+    networks:
+      - app-network
+
+  frontend:
+    image: hojiakbar2806/next_auth_front
+    environment:
+      - NODE_ENV=production
+    expose:
+      - "3000"
+    networks:
+      - app-network
+
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "84:80" 
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  
+      - ./nginx/error-pages:/usr/share/nginx/html  
+    networks:
+      - app-network
