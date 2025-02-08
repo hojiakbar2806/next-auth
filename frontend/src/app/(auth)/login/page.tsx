@@ -10,7 +10,6 @@ import FormInput from "@/components/auth/formInput";
 import OauthButton from "@/components/auth/oauthButton";
 import SubmitButton from "@/components/auth/submitButton";
 import { loginAction } from "@/app/actions/auth/login";
-import axios from "@/utils/axios";
 
 const schema = z.object({
   username: z.string().min(4, "Username must be at least 4 characters long"),
