@@ -8,14 +8,13 @@ app = FastAPI(
     title=settings.app_name,
     debug=settings.app_debug,
     openapi_prefix=settings.api_prefix,
-    docs_url="/docs",
 )
 
 setup_cors_middleware(app)
 setup_session_middleware(app)
 
 
-api_router = APIRouter(prefix="/api")
+api_router = APIRouter(prefix=settings.api_prefix)
 
 
 @api_router.get("")
