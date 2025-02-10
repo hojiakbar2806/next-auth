@@ -19,8 +19,8 @@ const FormInput: React.FC<FormInputProps> = ({
         {label}
       </label>
       <input
-        type={type}
         {...register}
+        type={type}
         placeholder={placeholder}
         className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 ${
           error ? "border-red-500" : "border-gray-300"

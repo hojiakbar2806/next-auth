@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "@/utils/axios";
+import axios from "@/lib/axios";
 import { RegisterFormData } from "../../(auth)/register/page";
 
 export async function registerAction(data: RegisterFormData) {

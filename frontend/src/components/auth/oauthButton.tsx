@@ -1,7 +1,7 @@
-import { BASE_URL } from "@/lib/const";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import React, { FC } from "react";
+import { Button } from "../ui/button";
+import { BASE_URL } from "@/lib/const";
 
 type OauthButtonProps = {
   label: string;
@@ -11,14 +11,15 @@ type OauthButtonProps = {
 
 const OauthButton: FC<OauthButtonProps> = ({ label, iconPath, oauth }) => {
   return (
-    <button
+    <Button
       type="button"
-      onClick={() => redirect(`${BASE_URL}/auth/login/${oauth}`)}
-      className="flex-1 flex items-center gap-5 bg-gray-100 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-200 transition"
+      className="w-full"
+      variant="outline"
+      onClick={() => (window.location.href = `${BASE_URL}/auth/login/${oauth}`)}
     >
       <Image src={iconPath} alt={label} width={30} height={30} />
       {label}
-    </button>
+    </Button>
   );
 };
 

@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "@/utils/axios";
+import axios from "@/lib/axios";
 import { cookies } from "next/headers";
 
 export async function setOauthToken(code: string) {

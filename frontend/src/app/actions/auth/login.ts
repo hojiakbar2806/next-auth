@@ -1,13 +1,12 @@
 "use server";
 
-import axios from "@/utils/axios";
+import axios from "@/lib/axios";
 import { cookies } from "next/headers";
 import { LoginFormData } from "@/app/(auth)/login/page";
 
 export async function loginAction(data: LoginFormData) {
   try {
     const res = await axios.post("/auth/login", data);
-    console.log(res)
     const { access_token, refresh_token } = res.data;
     const cookieStore = await cookies();
     cookieStore.set("refresh_token", refresh_token, {

@@ -15,7 +15,6 @@ export default function HolderPage() {
     if (!code) redirect("/");
     const processSession = async () => {
       const res = await setOauthToken(code);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       if (res) toast.success("Login successful!");
       else toast.error("Something went wrong");
       redirect("/");

@@ -1,7 +1,7 @@
 "use server";
 
 import { IAuthUser } from "@/types/auth";
-import axios from "@/utils/axios";
+import axios from "@/lib/axios";
 import { cookies } from "next/headers";
 
 export async function getSession(accessToken: string | null): Promise<{
@@ -10,8 +10,10 @@ export async function getSession(accessToken: string | null): Promise<{
 } | null> {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh_token")?.value;
+
+  if (!refreshToken) return null;
+
   try {
-    if (!refreshToken) return null;
     if (accessToken) {
       const session = await axios.get("/auth/session", {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -26,7 +28,8 @@ export async function getSession(accessToken: string | null): Promise<{
     });
     return { user: session.data, accessToken: res.data.access_token };
   } catch (error) {
-    console.log(error);
+    const cookieStore = await cookies();
+    cookieStore.delete("refresh_token");
     return null;
   }
 }
