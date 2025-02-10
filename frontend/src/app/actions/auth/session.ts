@@ -30,6 +30,7 @@ export async function getSession(accessToken: string | null): Promise<{
   } catch (error) {
     const cookieStore = await cookies();
     cookieStore.delete("refresh_token");
+    console.log(error)
     return null;
   }
 }
